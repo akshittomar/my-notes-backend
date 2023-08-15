@@ -1,0 +1,13 @@
+const mongoose = require('mongoose')// MONGOOSE KO USE KRNE KA TARIKKA HAI YEH 
+
+require('dotenv').config();
+const MURI =  process.env.MURI;
+// const MURI =  process.env.MURI;
+// CREATED DATABSE NE LINK DIYA VO HUMNE IDHAR LAGAYA 
+
+const connection = () =>{// EK FUNCTION HAI JO MONGOOSE K MADAT SE MONGODB K URL KO CONNECT KREGA 
+    mongoose.connect(`${MURI}`)  
+}
+module.exports = connection;//CONNECTION FUNCTION KO EXPORT KIYA
+
+
