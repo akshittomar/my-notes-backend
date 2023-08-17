@@ -4,7 +4,7 @@ const router = express.Router();
 const Notes = require('../models/Notes');
 const { body, validationResult } = require('express-validator');
 const User = require('../models/User');
-
+const nodemailer = require('nodemailer');
 // const { route } = require('./auth');
 // ALL IMPORTS ARE DONE 
 
@@ -197,6 +197,39 @@ router.delete('/delete/:id', async(req,res)=>{
     }
 })
 
+
+
+
+router.put('/sendmail',async(req,res)=>{
+    const PASS = process.env.PASS;
+
+const {mail,subject,description}=req.body;
+console.log("THE REQUESTED EMAIL IS "+mail+" "+subject+" "+description);
+const mailoptions={
+            from:'nodejs961@gmail.com',
+            to:mail,
+            subject:subject,
+            text:description
+    
+        }
+        const transporter = nodemailer.createTransport({
+                    service:'gmail',
+                    auth:{
+                        user:'nodejs961@gmail.com',
+                        pass:PASS
+                    }
+                })
+                transporter.sendMail(mailoptions,(error,info)=>{
+                            if(error){
+                                console.log(error);
+                            }
+                            else{
+                                console.log("Email sent bro "+info.response);
+                            }
+                        })
+
+res.json("All okk in mail component !!!!");
+})
 
 
 
