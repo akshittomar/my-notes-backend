@@ -34,7 +34,7 @@ try{
 //ouske vjh se yahan par req.user.id k basis par direct user fetch ho gya hai
 
 
-
+//genral commit
 
 
 //second important thing here is saare NOTES fetch honge jidhar jidhar user id math hogi user.id se ,  mai "Notes.find({user : ..... })" is method ki baat kr rha hu 
