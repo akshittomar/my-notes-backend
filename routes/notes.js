@@ -52,6 +52,33 @@ catch(error)
 
 
 
+router.get('/getallnotes', async (req, res) => {
+    try {
+        const email = req.query.email;  // Get email from query param
+        console.log("email yeh hai " + email);
+
+        const user = await User.findOne({ email: email });
+        console.log("user yeh hai " + user);
+
+        if (!user) {
+            return res.status(404).json({ error: "User not found" });
+        }
+
+        const notes = await Notes.find({ user: user._id });
+        console.log("notes yeh hai " + notes);
+
+        res.json(notes);
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send("INTERNAL SERVER ERROR");
+    }
+});
+
+
+
+
+
+
 
 
 
@@ -63,7 +90,7 @@ body('title','ENTER A VALID TITLE NAME ').isLength({min:3}),
 body('description','ENTER A VALID DESCRIPTION OF MIN LENGTH OF 5 ').isLength({min:5}),
 
 // body('time','ENTER A VALID TIME ').isString(),
-// body('shareEmail','ENTER A VALID EMAIL').isEmail(),
+ body('email','ENTER A VALID EMAIL').isEmail(),
 ],async (req,res)=> {
     
     //ROUTE:2 jo user logged in hai voh apne notes add kr skte hai api/notes/addnote
